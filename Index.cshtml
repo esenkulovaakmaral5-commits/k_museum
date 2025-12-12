@@ -1,0 +1,117 @@
+﻿@using k_museum.Models
+@{
+    ViewData["Title"] = "Музей Искусств";
+    var featuredExhibits = ViewBag.FeaturedExhibits as List<Exhibit>;
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-8">
+                <h1 class="hero-title">
+                    МУЗЕЙ ИСКУССТВ
+                </h1>
+                <p class="hero-subtitle">
+                    Откройте для себя мир великих произведений искусства в нашем современном музейном пространстве.
+                    Уникальная коллекция, вдохновляющие выставки и незабываемые впечатления ждут вас.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/exhibits" class="btn btn-accent btn-lg me-3">
+                        <i class="fas fa-palette me-2"></i>ОСМОТРЕТЬ КОЛЛЕКЦИЮ
+                    </a>
+                    <a href="/home/tickets" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-ticket-alt me-2"></i>КУПИТЬ БИЛЕТ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Exhibits -->
+<section class="featured-section">
+    <div class="container">
+        <h2 class="section-title">Избранные экспонаты</h2>
+        <div class="row">
+            @if (featuredExhibits?.Any() == true)
+            {
+                foreach (var exhibit in featuredExhibits)
+                {
+                    <div class="col-md-4">
+                        <div class="exhibit-card">
+                            @if (!string.IsNullOrEmpty(exhibit.ExhibitImage))
+                            {
+                                <img src="@exhibit.ExhibitImage" class="card-img-top" alt="@exhibit.Title">
+                            }
+                            else
+                            {
+                                <div class="card-img-top no-image">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@exhibit.Title</h5>
+                                <p class="card-text">
+                                    <i class="fas fa-user me-2"></i>@exhibit.Author?.FullName
+                                </p>
+                                <p class="card-year">
+                                    <i class="fas fa-calendar me-2"></i>@exhibit.CreationYear год
+                                </p>
+                                <div class="mt-3">
+                                    <a href="/exhibits/details/@exhibit.Id" class="btn btn-accent btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p class="lead">Коллекция скоро будет доступна</p>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/exhibits" class="btn btn-accent btn-lg">
+                <i class="fas fa-arrow-right me-2"></i>ВСЯ КОЛЛЕКЦИЯ
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5" style="background: var(--gradient); color: white;">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">500+</h3>
+                    <p class="lead">Экспонатов</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">150+</h3>
+                    <p class="lead">Авторов</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">10+</h3>
+                    <p class="lead">Выставок в год</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">50k+</h3>
+                    <p class="lead">Посетителей ежегодно</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
